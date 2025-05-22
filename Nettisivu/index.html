@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <title>Rentoudu & Rauhoitu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    .custom-player button {
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="w3-bar w3-card w3-padding" style="background-color:#4a6ed1;">
+  <a href="index.html" class="w3-bar-item w3-button w3-mobile" style="color:#e6f0fa;"><strong>Rentoudu & Rauhoitu</strong></a>
+  <a href="about.html" class="w3-bar-item w3-button w3-mobile" style="color:#e6f0fa;">Tietoa</a>
+  <a href="music.html" class="w3-bar-item w3-button w3-mobile" style="color:#e6f0fa;">Musiikki</a>
+  <a href="gallery.html" class="w3-bar-item w3-button w3-mobile" style="color:#e6f0fa;">Galleria</a>
+  <a href="quote.html" class="w3-bar-item w3-button w3-mobile" style="color:#e6f0fa;">Quote Generaattori</a>
+</div>
+
+<div class="parallax w3-display-container w3-center w3-padding-64">
+  <h1 class="w3-jumbo w3-animate-top">Tervetuloa Oskun Rentoudu & Rauhoitu -sivustolle</h1>
+  <p class="w3-large w3-animate-bottom">Digitaalinen tila rentoutua raskaan päivän jälkeen.</p>
+</div>
+
+<div class="w3-container w3-padding-64 w3-center">
+  <h2>Chill Vibes</h2>
+  <p>Mukava pikku sivusto, jonka avulla voi astua pois melusta ja kuunnella rentoa musiikia ja katsella rentouttavia kuvia.</p>
+  <p>Täydellinen hetken zen-nautinto.</p>
+</div>
+
+<div class="custom-player w3-center w3-padding">
+  <button id="playPauseBtn" class="w3-button w3-light-blue">▶️ Play</button>
+  <input type="range" id="progressBar" value="0" min="0" max="100" style="width:300px; vertical-align: middle;" />
+  <span id="timeDisplay">0:00 / 0:00</span>
+</div>
+
+<footer>
+  <p>© 2025 Oskari. Kaikki oikeudet pidätetään.</p>
+  <p>
+    <a href="https://facebook.com/yourprofile" aria-label="Facebook" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href="https://twitter.com/yourprofile" aria-label="Twitter" target="_blank" rel="noopener noreferrer">Twitter</a>
+    <a href="https://instagram.com/yourprofile" aria-label="Instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </p>
+</footer>
+
+<script>
+  const audio = new Audio('audio/indexchill.mp3');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const progressBar = document.getElementById('progressBar');
+  const timeDisplay = document.getElementById('timeDisplay');
+
+  playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playPauseBtn.textContent = '⏸️ Pause';
+    } else {
+      audio.pause();
+      playPauseBtn.textContent = '▶️ Play';
+    }
+  });
+
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.value = progress;
+      timeDisplay.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+    }
+  });
+
+  progressBar.addEventListener('input', () => {
+    if (audio.duration) {
+      audio.currentTime = (progressBar.value / 100) * audio.duration;
+    }
+  });
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+</script>
+
+</body>
+</html>
